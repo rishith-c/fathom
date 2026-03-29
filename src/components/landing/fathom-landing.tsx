@@ -162,6 +162,63 @@ const pricing = [
   },
 ];
 
+const platformBands = [
+  {
+    label: "Developer mode",
+    title: "Inspect every source, transformation, and generated section.",
+    body: "The product should feel inspectable at every layer, from retrieved paper fragments to the logic that produced a new mock question.",
+    left: ["source clusters", "answer keys", "forum fragments", "weight map"],
+    right: `scan: 186 sources
+cluster: 12 topic families
+dedupe: 49 archival mocks
+compose: 80 timed questions`,
+  },
+  {
+    label: "Operator view",
+    title: "Turn weak topics into the next targeted drill automatically.",
+    body: "After the mock, students or tutors can regenerate a narrower drill set from every concept they circled or missed repeatedly.",
+    left: ["flagged queue", "weak-topic graph", "mastery delta", "next drill"],
+    right: `review_queue.push("probability traps")
+regenerate(mode="focused")
+explain(outputs=["text","voice","video"])
+projected_delta = +12`,
+  },
+];
+
+const resources = [
+  {
+    title: "Docs",
+    body: "Implementation notes for adapters, scraping routes, explanation services, and mock generation contracts.",
+  },
+  {
+    title: "Playground",
+    body: "A safe place to try exam names, source packs, and explanation surfaces without touching production data.",
+  },
+  {
+    title: "Blog",
+    body: "Writeups on question synthesis, answer rationales, retrieval quality, and why most test-prep UX feels stale.",
+  },
+  {
+    title: "Resources",
+    body: "Starter prompt packs, integration recipes, and study-agent patterns for tutors or platforms.",
+  },
+];
+
+const extraTestimonials = [
+  {
+    quote:
+      "The long-scroll product story matters because people can actually understand how the mock gets assembled before they trust it.",
+    name: "Dev Shah",
+    role: "Independent tutor",
+  },
+  {
+    quote:
+      "The code-and-product rhythm makes this feel more like a serious tooling platform than a generic education app.",
+    name: "Lena Cho",
+    role: "Design engineer, PrepKit",
+  },
+];
+
 export function FathomLanding() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f8fbff] text-[#212126]">
@@ -401,6 +458,44 @@ export function FathomLanding() {
           </div>
         </section>
 
+        <section className="space-y-8 py-12">
+          {platformBands.map((band, index) => (
+            <div
+              key={band.title}
+              className={`grid gap-6 rounded-[34px] border border-[#e6edf8] bg-[rgba(255,255,255,0.9)] p-8 shadow-[0_12px_30px_rgba(73,111,182,0.06)] lg:grid-cols-[1fr_1fr] ${
+                index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+              }`}
+            >
+              <div>
+                <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">{band.label}</p>
+                <h2 className="mt-4 text-[40px] font-semibold leading-tight tracking-[-0.04em] text-[#23262d]">
+                  {band.title}
+                </h2>
+                <p className="mt-4 max-w-[560px] text-xl leading-9 text-[#687184]">{band.body}</p>
+                <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                  {band.left.map((item) => (
+                    <div key={item} className="rounded-[22px] border border-[#e8eef9] bg-[#f8fbff] px-4 py-4 text-base text-[#51607d]">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[28px] border border-[#e8eef9] bg-[#f9fbff] p-6">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="mono text-xs uppercase tracking-[0.2em] text-[#8ea2c9]">live system band</span>
+                  <button type="button" className="rounded-full border border-[#e5edf8] px-3 py-1 text-sm text-[#5e6d8d]">
+                    Copy
+                  </button>
+                </div>
+                <pre className="mono overflow-x-auto rounded-[24px] border border-[#dfe8f8] bg-white p-5 text-sm leading-7 text-[#2d56b6]">
+                  {band.right}
+                </pre>
+              </div>
+            </div>
+          ))}
+        </section>
+
         <section className="py-12">
           <div className="mb-10 text-center">
             <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">Testimonials</p>
@@ -411,6 +506,18 @@ export function FathomLanding() {
 
           <div className="grid gap-6 lg:grid-cols-3">
             {testimonials.map((item) => (
+              <article key={item.name} className="feature-card rounded-[28px] p-7 shadow-[0_10px_26px_rgba(73,111,182,0.05)]">
+                <Quote className="size-6 text-[var(--accent)]" />
+                <p className="mt-5 text-lg leading-8 text-[#4f5d79]">{item.quote}</p>
+                <div className="mt-8 border-t border-[#e6edf8] pt-5">
+                  <p className="text-lg font-semibold text-[#23262d]">{item.name}</p>
+                  <p className="mt-1 text-base text-[#7b879d]">{item.role}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            {extraTestimonials.map((item) => (
               <article key={item.name} className="feature-card rounded-[28px] p-7 shadow-[0_10px_26px_rgba(73,111,182,0.05)]">
                 <Quote className="size-6 text-[var(--accent)]" />
                 <p className="mt-5 text-lg leading-8 text-[#4f5d79]">{item.quote}</p>
@@ -455,6 +562,26 @@ export function FathomLanding() {
                 <Link href="/auth" className={`mt-8 ${plan.highlighted ? "primary-button" : "secondary-button"}`}>
                   Start with {plan.tier}
                 </Link>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-12">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <div>
+              <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">Resources</p>
+              <h2 className="mt-4 text-[44px] font-semibold tracking-[-0.04em] text-[#23262d]">
+                The rest of the product surface should feel just as complete.
+              </h2>
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {resources.map((item) => (
+              <article key={item.title} className="workflow-card rounded-[28px] p-6 shadow-[0_10px_26px_rgba(73,111,182,0.05)]">
+                <h3 className="text-[24px] font-semibold text-[#23262d]">{item.title}</h3>
+                <p className="mt-4 text-lg leading-8 text-[#687184]">{item.body}</p>
               </article>
             ))}
           </div>
