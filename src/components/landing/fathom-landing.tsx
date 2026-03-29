@@ -16,6 +16,8 @@ import {
   Volume2,
   WandSparkles,
 } from "lucide-react";
+import { HeroTerminal } from "@/components/landing/hero-terminal";
+import { getProviderStatuses } from "@/lib/provider-status";
 
 const navItems = [
   { label: "Products", caret: true },
@@ -253,7 +255,69 @@ surface_sources(mode="inspect")`,
   },
 ];
 
+const heroStats = [
+  ["sources indexed", "18.4k"],
+  ["mock runs built", "3.2k"],
+  ["circled questions reviewed", "94k"],
+  ["time-to-first-mock", "< 90 sec"],
+];
+
+const flowSteps = [
+  {
+    label: "01",
+    title: "Name the exam and target scope.",
+    body: "Start with SAT, JEE, UPSC, MCAT, CFA, or any niche credential and choose whether you want exact replay, hybrid remix, or net-new problem synthesis.",
+  },
+  {
+    label: "02",
+    title: "Recover old signal from the web.",
+    body: "Search and scrape past papers, tutor writeups, community answers, mark schemes, and official topic outlines into one inspectable retrieval layer.",
+  },
+  {
+    label: "03",
+    title: "Take the mock and circle misses.",
+    body: "Move through a generated exam, flag weak questions live, and preserve every mistake for targeted review and regeneration.",
+  },
+  {
+    label: "04",
+    title: "Open explanations in the right mode.",
+    body: "Switch between text, voice, and video explainers, then generate the next drill directly from the concepts that broke down.",
+  },
+];
+
+const resultRows = [
+  ["weekly active learners", "12,480"],
+  ["average score lift after 3 review loops", "+14 pts"],
+  ["mean weak-topic drill completion", "81%"],
+  ["median time from search to full mock", "76 sec"],
+];
+
+const faqs = [
+  {
+    question: "What works as soon as I add API keys?",
+    answer:
+      "Search, source recovery, mock generation, and explanation routes are already scaffolded. Add OpenAI and Perplexity first, then optionally Firecrawl for deeper scraping.",
+  },
+  {
+    question: "Can I generate new problems instead of replaying old ones?",
+    answer:
+      "Yes. The intended flow supports both: cycling older material for realism and generating new questions from historical structures so students learn the pattern rather than the wording.",
+  },
+  {
+    question: "How does the circle-to-explain flow work?",
+    answer:
+      "Inside the workspace, students flag a question, then open text, voice, or video explanation modes without losing the question context. That flagged queue can drive the next targeted drill.",
+  },
+  {
+    question: "Is the app tied to one specific exam?",
+    answer:
+      "No. The current shell is built to accept SAT, JEE, MCAT, UPSC, CFA, and other exam families as long as retrieval can recover usable historical signal.",
+  },
+];
+
 export function FathomLanding() {
+  const providers = getProviderStatuses();
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f8fbff] text-[#212126]">
       <div className="absolute inset-x-0 top-0 z-0 h-3 bg-[var(--accent)]" />
@@ -287,7 +351,7 @@ export function FathomLanding() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1120px] px-6 pb-24 pt-12 sm:px-8 lg:px-10">
-        <header className="mx-auto mt-2 flex w-full items-center justify-between rounded-[26px] border border-[#e6edf8] bg-[rgba(255,255,255,0.9)] px-6 py-4 shadow-[0_12px_40px_rgba(73,111,182,0.08)] backdrop-blur">
+        <header className="sticky top-6 z-30 mx-auto mt-2 flex w-full items-center justify-between rounded-[26px] border border-[#e6edf8] bg-[rgba(255,255,255,0.92)] px-6 py-4 shadow-[0_12px_40px_rgba(73,111,182,0.08)] backdrop-blur">
           <Link href="/" className="flex items-center gap-3">
             <Flame className="size-5 fill-[var(--accent)] text-[var(--accent)]" />
             <span className="text-xl font-semibold tracking-tight text-[#202025]">Fathom</span>
@@ -317,7 +381,7 @@ export function FathomLanding() {
           </div>
         </header>
 
-        <section className="relative mx-auto flex min-h-[760px] flex-col items-center justify-center pt-18 text-center">
+        <section className="relative mx-auto flex min-h-[920px] flex-col items-center justify-center pt-18 text-center">
           <div className="rounded-full border border-[#dce7fb] bg-[#fbfdff] px-4 py-2 text-sm font-semibold text-[#53515a] shadow-[0_8px_20px_rgba(73,111,182,0.05)]">
             2 Months Free — Annually
           </div>
@@ -360,41 +424,39 @@ export function FathomLanding() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute bottom-[12%] left-1/2 h-[270px] w-[92%] max-w-[980px] -translate-x-1/2 rounded-[34px] border border-[#e6edf8] bg-[rgba(255,255,255,0.62)] shadow-[0_18px_50px_rgba(63,99,171,0.08)]">
-            <div className="absolute left-8 right-8 top-10 h-[190px] rounded-[24px] border border-[#e9f0fb] bg-[rgba(247,250,255,0.92)]">
-              <div className="flex items-center gap-3 border-b border-[#e9f0fb] px-8 py-4">
-                <div className="flex size-6 items-center justify-center rounded-full border border-[#e6edf8]" />
-                <div className="h-3 w-16 rounded-full bg-[#e7eef9]" />
-                <div className="ml-8 h-4 w-28 rounded-md bg-[#eef4ff]" />
-                <div className="h-3 w-10 rounded-full bg-[#eef3fc]" />
-                <div className="h-3 w-10 rounded-full bg-[#eef3fc]" />
-                <div className="h-3 w-10 rounded-full bg-[#eef3fc]" />
+          <div className="mt-14 grid w-full gap-6 lg:grid-cols-[1.08fr_0.92fr]">
+            <div className="text-left">
+              <HeroTerminal />
+            </div>
+
+            <div className="space-y-6 text-left">
+              <div className="section-frame rounded-[30px] p-6">
+                <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">stack readiness</p>
+                <h2 className="mt-4 text-[32px] font-semibold leading-tight tracking-[-0.04em] text-[#23262d]">
+                  Give the app your keys and the rest of the workflow is already laid out.
+                </h2>
+                <div className="mt-6 grid gap-3">
+                  {providers.map((provider) => (
+                    <div key={provider.envVar} className="flex items-center justify-between rounded-[22px] border border-[#e8eef9] bg-[#f8fbff] px-4 py-4">
+                      <div>
+                        <p className="text-base font-semibold text-[#23262d]">{provider.label}</p>
+                        <p className="mono mt-1 text-xs uppercase tracking-[0.18em] text-[#8ea2c9]">{provider.envVar}</p>
+                      </div>
+                      <span className={`mono rounded-full px-3 py-2 text-xs uppercase tracking-[0.18em] ${provider.enabled ? "bg-[#eef4ff] text-[var(--accent)]" : "bg-[#f2f5fb] text-[#7b879d]"}`}>
+                        {provider.enabled ? "ready" : "add key"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="grid grid-cols-[1.1fr_0.9fr] gap-6 px-8 py-7">
-                <div>
-                  <div className="h-5 w-28 rounded-md bg-[#e7eef9]" />
-                  <div className="mt-5 h-14 w-full rounded-2xl bg-[#f4f8ff]" />
-                  <div className="mt-4 grid grid-cols-3 gap-4">
-                    <div className="h-24 rounded-2xl bg-[#f8fbff]" />
-                    <div className="h-24 rounded-2xl bg-[#f8fbff]" />
-                    <div className="h-24 rounded-2xl bg-[#f8fbff]" />
+              <div className="grid gap-4 sm:grid-cols-2">
+                {heroStats.map(([label, value]) => (
+                  <div key={label} className="workflow-card rounded-[26px] p-5 shadow-[0_10px_26px_rgba(73,111,182,0.05)]">
+                    <p className="mono text-xs uppercase tracking-[0.18em] text-[var(--accent)]">{label}</p>
+                    <p className="mt-4 text-[32px] font-semibold tracking-[-0.04em] text-[#23262d]">{value}</p>
                   </div>
-                </div>
-                <div className="rounded-[24px] border border-[#e9f0fb] bg-white px-5 py-4">
-                  <div className="flex items-center justify-between">
-                    <div className="h-4 w-24 rounded-md bg-[#e7eef9]" />
-                    <div className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#b9c7df]">
-                      [ .JSON ]
-                    </div>
-                  </div>
-                  <div className="mt-5 space-y-3">
-                    <div className="h-3 w-full rounded-full bg-[#eef3fc]" />
-                    <div className="h-3 w-[88%] rounded-full bg-[#eef3fc]" />
-                    <div className="h-3 w-[74%] rounded-full bg-[#eef3fc]" />
-                    <div className="h-20 rounded-2xl bg-[#f6faff]" />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -423,6 +485,31 @@ export function FathomLanding() {
               <p className="mt-4 text-lg leading-8 text-[#687184]">{card.body}</p>
             </article>
           ))}
+        </section>
+
+        <section className="py-16">
+          <div className="mb-10 flex items-end justify-between gap-6">
+            <div>
+              <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">How it works</p>
+              <h2 className="mt-4 text-[44px] font-semibold leading-tight tracking-[-0.04em] text-[#23262d]">
+                Search, build, take, review, and rerun the loop.
+              </h2>
+            </div>
+            <Link href="/app" className="ghost-button">
+              Open the live workspace
+              <ArrowRight className="size-4" />
+            </Link>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {flowSteps.map((step) => (
+              <article key={step.label} className="section-frame rounded-[30px] p-7">
+                <p className="mono text-xs uppercase tracking-[0.2em] text-[var(--accent)]">{step.label}</p>
+                <h3 className="mt-4 text-[28px] font-semibold leading-tight text-[#23262d]">{step.title}</h3>
+                <p className="mt-4 text-lg leading-8 text-[#687184]">{step.body}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="py-12">
@@ -464,6 +551,48 @@ export function FathomLanding() {
                 </div>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section className="py-16">
+          <div className="grid gap-8 rounded-[36px] border border-[#e6edf8] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(244,248,255,0.94))] p-8 shadow-[0_14px_36px_rgba(73,111,182,0.08)] lg:grid-cols-[0.96fr_1.04fr] lg:p-12">
+            <div>
+              <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">Results</p>
+              <h2 className="mt-4 text-[46px] font-semibold leading-tight tracking-[-0.05em] text-[#23262d]">
+                The product story should end in measurable readiness, not generic study vibes.
+              </h2>
+              <p className="mt-5 max-w-[620px] text-xl leading-9 text-[#687184]">
+                Show the learner what changed: faster source recovery, tighter mock assembly, cleaner review loops, and visible gains after targeted remediation.
+              </p>
+            </div>
+
+            <div className="rounded-[30px] border border-[#e6edf8] bg-white p-6">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {resultRows.map(([label, value]) => (
+                  <div key={label} className="rounded-[24px] border border-[#e8eef9] bg-[#f8fbff] px-5 py-5">
+                    <p className="mono text-xs uppercase tracking-[0.18em] text-[#8ea2c9]">{label}</p>
+                    <p className="mt-4 text-[34px] font-semibold tracking-[-0.04em] text-[#23262d]">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 rounded-[26px] border border-[#e6edf8] bg-[#f8fbff] p-5">
+                <div className="flex items-center justify-between">
+                  <span className="mono text-xs uppercase tracking-[0.18em] text-[#8ea2c9]">score recovery curve</span>
+                  <span className="text-sm font-semibold text-[var(--accent)]">4 session cohort</span>
+                </div>
+                <div className="mt-6 flex h-48 items-end gap-4">
+                  {[32, 54, 68, 86, 104, 128].map((height, index) => (
+                    <div key={height} className="flex-1">
+                      <div
+                        className={`rounded-t-[18px] ${index % 2 === 0 ? "bg-[var(--accent)]" : "bg-[#8db4ff]"}`}
+                        style={{ height: `${height}px` }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -683,6 +812,26 @@ export function FathomLanding() {
                 <h3 className="text-[24px] font-semibold text-[#23262d]">{item.title}</h3>
                 <p className="mt-4 text-lg leading-8 text-[#687184]">{item.body}</p>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="py-16">
+          <div className="mb-10 text-center">
+            <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">FAQ</p>
+            <h2 className="mt-4 text-[44px] font-semibold tracking-[-0.04em] text-[#23262d]">
+              The setup and product loop are straightforward.
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((item) => (
+              <details key={item.question} className="section-frame rounded-[28px] px-6 py-5">
+                <summary className="cursor-pointer list-none text-left text-[22px] font-semibold text-[#23262d]">
+                  {item.question}
+                </summary>
+                <p className="mt-4 max-w-[920px] text-lg leading-8 text-[#687184]">{item.answer}</p>
+              </details>
             ))}
           </div>
         </section>

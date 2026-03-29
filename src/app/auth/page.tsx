@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowRight, LockKeyhole, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, LockKeyhole, Sparkles } from "lucide-react";
+import { getProviderStatuses } from "@/lib/provider-status";
 
 const authBenefits = [
   "Save generated mocks and circled questions",
@@ -8,6 +9,8 @@ const authBenefits = [
 ];
 
 export default function AuthPage() {
+  const providers = getProviderStatuses();
+
   return (
     <main className="fathom-shell min-h-screen">
       <div className="relative z-10 mx-auto grid min-h-screen w-full max-w-[1280px] gap-8 px-6 py-8 sm:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:px-10">
@@ -42,6 +45,27 @@ export default function AuthPage() {
 [ review   ] syncing circled question queue
 [ ready    ] app workspace unlocked`}
             </pre>
+          </div>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {providers.map((provider) => (
+              <div key={provider.envVar} className="stat-chip rounded-[24px] p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-base font-semibold text-[var(--foreground)]">{provider.label}</p>
+                  <span
+                    className={`mono rounded-full px-3 py-1 text-xs uppercase tracking-[0.18em] ${
+                      provider.enabled
+                        ? "bg-[rgba(42,109,251,0.08)] text-[var(--accent)]"
+                        : "bg-[rgba(120,133,158,0.08)] text-[var(--muted)]"
+                    }`}
+                  >
+                    {provider.enabled ? "connected" : "missing"}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{provider.summary}</p>
+                <p className="mono mt-4 text-xs uppercase tracking-[0.18em] text-[var(--accent)]">{provider.envVar}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -101,6 +125,22 @@ export default function AuthPage() {
               Open app shell
               <ArrowRight className="size-4" />
             </Link>
+          </div>
+
+          <div className="mt-6 rounded-[26px] border border-[var(--border)] bg-[rgba(255,255,255,0.03)] p-5">
+            <p className="mono text-xs uppercase tracking-[0.18em] text-[var(--accent)]">ready checklist</p>
+            <div className="mt-4 space-y-3">
+              {[
+                "Drop your API keys into .env.local",
+                "Restart the Next dev server once",
+                "Open the app workspace and start generating mocks",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3 text-sm text-[var(--foreground)]">
+                  <CheckCircle2 className="size-4 text-[var(--accent)]" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </div>
