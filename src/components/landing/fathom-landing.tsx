@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Flame, Globe, GitHub, Sparkles } from "lucide-react";
+import { ArrowRight, ChevronDown, Flame, GitBranch, Globe, Sparkles } from "lucide-react";
 
 const navItems = [
   "Products",
@@ -71,7 +71,7 @@ export function FathomLanding() {
 
           <div className="flex items-center gap-3">
             <div className="hidden items-center gap-2 rounded-full border border-[#ece4d7] bg-white px-4 py-2 text-[15px] font-medium text-[#45434c] sm:flex">
-              <GitHub className="size-4" />
+              <GitBranch className="size-4" />
               100.4K
             </div>
             <Link
