@@ -49,35 +49,65 @@ const tabs = [
   },
 ] as const;
 
-const asciiFrames = [
-  String.raw`          .----------------------.
-         /  source graph        /|
-        /______________________/ |
-        |   SAT  GRE  MCAT    |  |
-        |   LSAT UPSC IELTS   |  |
-        |_____________________| /`,
-  String.raw`          .----------------------.
-         /  signal clustering   /|
-        /______________________/ |
-        |  topic  weight  trap |  |
-        |   calc    0.81   A   |  |
-        |_____________________| /`,
-  String.raw`          .----------------------.
-         /  mock generation     /|
-        /______________________/ |
-        |  old motifs  -> new  |  |
-        |  q1 q2 q3 q4 q5 q6   |  |
-        |_____________________| /`,
-];
+const asciiGlyphs = "  .,:;-=+*#%@";
+
+function generateLiquidFrame(tabId: (typeof tabs)[number]["id"], phase: number): string {
+  const width = 30;
+  const height = 12;
+  const lines: string[] = [];
+  const seed =
+    tabId === "capture"
+      ? 0.85
+      : tabId === "synthesize"
+        ? 1.55
+        : 2.25;
+  const badge =
+    tabId === "capture"
+      ? "[SCAN MODE]"
+      : tabId === "synthesize"
+        ? "[BUILD MODE]"
+        : "[COACH MODE]";
+
+  for (let y = 0; y < height; y += 1) {
+    let line = "";
+
+    for (let x = 0; x < width; x += 1) {
+      const waveA = Math.sin(x * 0.34 + phase * 1.35 + seed);
+      const waveB = Math.cos(y * 0.58 - phase * 1.1 + seed * 2.4);
+      const waveC = Math.sin((x + y) * 0.22 - phase * 0.95);
+      const waveD = Math.cos(Math.hypot(x - width / 2, y - height / 2) * 0.75 - phase * 1.8);
+      const intensity = (waveA + waveB + waveC + waveD + 4) / 8;
+      const glyphIndex = Math.max(
+        0,
+        Math.min(asciiGlyphs.length - 1, Math.floor(intensity * (asciiGlyphs.length - 1))),
+      );
+
+      line += asciiGlyphs[glyphIndex];
+    }
+
+    lines.push(line);
+  }
+
+  const badgeRow = 1;
+  const badgeCol = Math.max(0, Math.floor((width - badge.length) / 2));
+  const rowChars = lines[badgeRow]?.split("") ?? [];
+
+  for (let i = 0; i < badge.length; i += 1) {
+    rowChars[badgeCol + i] = badge[i] ?? " ";
+  }
+
+  lines[badgeRow] = rowChars.join("");
+  return lines.join("\n");
+}
 
 export function HeroTerminal() {
   const [activeTab, setActiveTab] = useState<(typeof tabs)[number]["id"]>("capture");
-  const [frameIndex, setFrameIndex] = useState(0);
+  const [phase, setPhase] = useState(0);
 
   useEffect(() => {
     const frameTimer = window.setInterval(() => {
-      setFrameIndex((current) => (current + 1) % asciiFrames.length);
-    }, 1800);
+      setPhase((current) => current + 0.18);
+    }, 90);
 
     const tabTimer = window.setInterval(() => {
       setActiveTab((current) => {
@@ -143,8 +173,8 @@ export function HeroTerminal() {
           </div>
 
           <div className="ascii-window rounded-[20px] p-5">
-            <pre className="mono overflow-x-auto text-sm leading-6 text-[var(--accent-strong)]">
-              {asciiFrames[frameIndex]}
+            <pre className="ascii-liquid mono overflow-x-auto text-sm leading-6 text-[var(--accent-strong)]">
+              {generateLiquidFrame(activeTab, phase)}
             </pre>
           </div>
 

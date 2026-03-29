@@ -179,6 +179,19 @@ input {
   box-shadow: inset 0 0 40px rgba(255, 125, 59, 0.06);
 }
 
+.ascii-liquid {
+  position: relative;
+  text-shadow:
+    0 0 12px rgba(255, 176, 111, 0.22),
+    0 0 26px rgba(126, 165, 255, 0.1);
+  transform: translateZ(0);
+  animation: liquid-breathe 4.8s ease-in-out infinite;
+}
+
+.ascii-liquid::selection {
+  background: rgba(255, 176, 111, 0.2);
+}
+
 .logo-track {
   display: flex;
   min-width: max-content;
@@ -348,5 +361,18 @@ a:focus-visible {
   to {
     transform: translateY(100vh);
     opacity: 0.3;
+  }
+}
+
+@keyframes liquid-breathe {
+  0%,
+  100% {
+    opacity: 0.88;
+    filter: saturate(1) blur(0);
+  }
+
+  50% {
+    opacity: 1;
+    filter: saturate(1.1) blur(0.1px);
   }
 }
