@@ -1,221 +1,176 @@
-import { ArrowRight, Play, Sparkles } from "lucide-react";
-import { features, metrics, workflow } from "@/components/landing/data";
-import { HeroTerminal } from "@/components/landing/hero-terminal";
-import { LogoMarquee } from "@/components/landing/logo-marquee";
-import { MockExamWorkbench } from "@/components/landing/mock-exam-workbench";
+import Link from "next/link";
+import { ArrowRight, ChevronDown, Flame, Globe, GitHub, Sparkles } from "lucide-react";
+
+const navItems = [
+  "Products",
+  "Playground",
+  "Docs",
+  "Pricing",
+  "Integrations",
+  "Blog",
+  "Resources",
+];
+
+const toolTabs = ["Search", "Scrape", "Map", "Crawl"];
 
 export function FathomLanding() {
   return (
-    <div className="fathom-shell">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-[var(--accent)] focus:px-4 focus:py-3 focus:text-black"
-      >
-        Skip to main content
-      </a>
+    <main className="relative min-h-screen overflow-hidden bg-[#f7f4ef] text-[#212126]">
+      <div className="absolute inset-x-0 top-0 z-0 h-3 bg-[#ff6a1a]" />
 
-      <header className="relative z-10 mx-auto flex w-full max-w-[1280px] items-center justify-between px-6 py-6 sm:px-8 lg:px-10">
-        <a href="#" className="flex items-center gap-3">
-          <div className="flex size-11 items-center justify-center rounded-2xl border border-[var(--border)] bg-[rgba(255,255,255,0.04)]">
-            <span className="mono text-sm font-semibold text-[var(--accent)]">
-              FTH
-            </span>
-          </div>
-          <div>
-            <p className="mono text-xs uppercase tracking-[0.24em] text-[var(--muted)]">
-              Fathom
-            </p>
-            <p className="text-sm text-[var(--foreground)]">
-              AI mock tests from web signals
-            </p>
-          </div>
-        </a>
+      <div
+        className="absolute inset-0 z-0 opacity-90"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(37,37,37,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(37,37,37,0.05) 1px, transparent 1px)",
+          backgroundSize: "94px 94px",
+        }}
+      />
 
-        <nav
-          aria-label="Main"
-          className="hidden items-center gap-6 rounded-full border border-[var(--border)] bg-[rgba(255,255,255,0.03)] px-5 py-3 lg:flex"
-        >
-          <a className="text-sm text-[var(--muted)]" href="#platform">
-            Platform
-          </a>
-          <a className="text-sm text-[var(--muted)]" href="#flow">
-            Flow
-          </a>
-          <a className="text-sm text-[var(--muted)]" href="#workbench">
-            Workbench
-          </a>
-        </nav>
+      <div className="absolute left-[7%] top-[18%] text-[12px] font-medium uppercase tracking-[0.28em] text-[#d7d1c8]">
+        [ 200 OK ]
+      </div>
+      <div className="absolute right-[6%] top-[18%] text-[12px] font-medium uppercase tracking-[0.28em] text-[#d7d1c8]">
+        [ SCRAPE ]
+      </div>
+      <div className="absolute left-[7%] top-[69%] text-[12px] font-medium uppercase tracking-[0.28em] text-[#d7d1c8]">
+        [ .JSON ]
+      </div>
+      <div className="absolute right-[7%] top-[69%] text-[12px] font-medium uppercase tracking-[0.28em] text-[#d7d1c8]">
+        [ .MD ]
+      </div>
 
-        <a className="secondary-button hidden sm:inline-flex" href="#workbench">
-          Launch demo
-        </a>
-      </header>
+      <div className="absolute left-[18%] top-[23%] flex size-10 items-center justify-center rounded-full border border-[#efe8dd] bg-[#fbf8f3] text-[#ff6a1a]">
+        <Sparkles className="size-4" />
+      </div>
+      <div className="absolute right-[26%] top-[23%] flex size-10 items-center justify-center rounded-full border border-[#efe8dd] bg-[#fbf8f3] text-[#ff6a1a]">
+        <Sparkles className="size-4" />
+      </div>
 
-      <main id="main-content" className="relative z-10 pb-20">
-        <section className="mx-auto grid w-full max-w-[1280px] gap-10 px-6 pb-16 pt-6 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:px-10 lg:pt-10">
-          <div className="hero-grid rounded-[34px] p-6 sm:p-8 lg:p-10">
-            <span className="section-kicker">web-scale exam prep</span>
-            <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
-              Turn the messy web into a full mock test pipeline.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-              Fathom uses the same dense, terminal-heavy product language that makes
-              Firecrawl feel immediate, then applies it to test prep: scan old
-              question patterns, generate new mocks, and let students circle any
-              problem for text, voice, or video explanations later.
-            </p>
+      <div className="relative z-10 mx-auto max-w-[1120px] px-6 pb-24 pt-12 sm:px-8 lg:px-10">
+        <header className="mx-auto mt-2 flex w-full items-center justify-between rounded-[26px] border border-[#ece4d7] bg-[rgba(255,255,255,0.86)] px-6 py-4 shadow-[0_12px_40px_rgba(60,42,24,0.06)] backdrop-blur">
+          <Link href="/" className="flex items-center gap-3">
+            <Flame className="size-5 fill-[#ff6a1a] text-[#ff6a1a]" />
+            <span className="text-xl font-semibold tracking-tight text-[#202025]">Fathom</span>
+          </Link>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a className="primary-button" href="#workbench">
-                <Sparkles className="size-4" />
-                Build a mock now
-              </a>
-              <a className="secondary-button" href="#flow">
-                <Play className="size-4" />
-                See the flow
-              </a>
-            </div>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              {metrics.map((metric) => (
-                <div key={metric.label} className="stat-chip rounded-[26px] p-5">
-                  <p className="mono text-xs uppercase tracking-[0.18em] text-[var(--muted)]">
-                    {metric.label}
-                  </p>
-                  <p className="mt-4 text-3xl font-semibold">{metric.value}</p>
-                  <p className="mt-3 text-base leading-relaxed text-[var(--muted)]">
-                    {metric.detail}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <HeroTerminal />
-        </section>
-
-        <section className="mx-auto w-full max-w-[1280px] px-6 py-8 sm:px-8 lg:px-10">
-          <LogoMarquee />
-        </section>
-
-        <section
-          id="platform"
-          aria-labelledby="platform-title"
-          className="mx-auto w-full max-w-[1280px] px-6 py-12 sm:px-8 lg:px-10"
-        >
-          <div className="section-frame rounded-[32px] p-6 sm:p-8 lg:p-10">
-            <span className="section-kicker">product thesis</span>
-            <div className="mt-5 grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
-              <div>
-                <h2
-                  id="platform-title"
-                  className="text-3xl font-semibold tracking-tight sm:text-4xl"
-                >
-                  The same interface rhythm as Firecrawl, but built for high-stakes studying.
-                </h2>
-                <p className="mt-4 text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-                  Dense terminal panels, visible data movement, ASCII signal cues, and
-                  compact status cards make the product feel live instead of ornamental.
-                  The experience centers on one job: converting historical exam signal
-                  into deliberate practice you can actually learn from.
-                </p>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-3">
-                {features.map((feature) => (
-                  <article key={feature.title} className="feature-card rounded-[26px] p-5">
-                    <p className="mono text-xs uppercase tracking-[0.18em] text-[var(--accent)]">
-                      capability
-                    </p>
-                    <h3 className="mt-4 text-xl font-semibold">{feature.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-[var(--muted)]">
-                      {feature.body}
-                    </p>
-                    <p className="mt-4 text-sm leading-relaxed text-[var(--accent-strong)]">
-                      {feature.detail}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section
-          id="flow"
-          aria-labelledby="flow-title"
-          className="mx-auto w-full max-w-[1280px] px-6 py-12 sm:px-8 lg:px-10"
-        >
-          <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <span className="section-kicker">entire user flow</span>
-              <h2
-                id="flow-title"
-                className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl"
+          <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
+            {navItems.map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="flex items-center gap-1 text-[15px] font-medium text-[#45434c]"
               >
-                From search query to post-mock explanation loop.
-              </h2>
-            </div>
-            <a className="ghost-button" href="#workbench">
-              Jump to the demo
-              <ArrowRight className="size-4" />
-            </a>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-4">
-            {workflow.map((item) => (
-              <article key={item.step} className="workflow-card rounded-[26px] p-6">
-                <p className="workflow-index">{item.step}</p>
-                <h3 className="mt-5 text-2xl font-semibold">{item.title}</h3>
-                <p className="mt-4 text-base leading-relaxed text-[var(--muted)]">
-                  {item.body}
-                </p>
-              </article>
+                {item}
+                {["Products", "Integrations", "Resources"].includes(item) ? (
+                  <ChevronDown className="size-4 text-[#8e887f]" />
+                ) : null}
+              </a>
             ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <div className="hidden items-center gap-2 rounded-full border border-[#ece4d7] bg-white px-4 py-2 text-[15px] font-medium text-[#45434c] sm:flex">
+              <GitHub className="size-4" />
+              100.4K
+            </div>
+            <Link
+              href="/app"
+              className="rounded-xl bg-[#efebe4] px-4 py-2 text-[15px] font-semibold text-[#2a2a30]"
+            >
+              Dashboard
+            </Link>
           </div>
-        </section>
+        </header>
 
-        <div className="mx-auto w-full max-w-[1280px] px-6 py-12 sm:px-8 lg:px-10">
-          <MockExamWorkbench />
-        </div>
+        <section className="relative mx-auto flex min-h-[760px] flex-col items-center justify-center pt-18 text-center">
+          <div className="rounded-full border border-[#d9d2c6] bg-[#fbf8f3] px-4 py-2 text-sm font-semibold text-[#53515a] shadow-[0_8px_20px_rgba(60,42,24,0.05)]">
+            2 Months Free — Annually
+          </div>
 
-        <section className="mx-auto w-full max-w-[1280px] px-6 py-12 sm:px-8 lg:px-10">
-          <div className="section-frame rounded-[34px] px-6 py-8 sm:px-8 sm:py-10 lg:px-10">
-            <div className="grid gap-8 lg:grid-cols-[1.02fr_0.98fr]">
-              <div>
-                <span className="section-kicker">extra features</span>
-                <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                  Built for serious prep, not just pretty screenshots.
-                </h2>
-                <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--muted)] sm:text-lg">
-                  The product can expand into spaced repetition for circled misses,
-                  cohort analytics for tutors, and source traceability that shows which
-                  old pattern each generated question came from.
-                </p>
-              </div>
+          <h1 className="mt-8 max-w-[860px] text-[56px] font-semibold leading-[0.95] tracking-[-0.05em] text-[#24242a] sm:text-[74px] lg:text-[82px]">
+            Power AI students with
+            <br />
+            <span className="text-[#ff6a1a]">clean exam data</span>
+          </h1>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                  ["Source trace", "Every generated problem can cite the family of older prompts it came from."],
-                  ["Tutor mode", "Coaches can publish shared review packs for whole cohorts after each mock."],
-                  ["Weak-spot loops", "Missed questions become auto-generated drills until confidence rises."],
-                  ["Media stack", "Explanation outputs can become narration, captions, and storyboard scenes."],
-                ].map(([title, detail]) => (
-                  <div
-                    key={title}
-                    className="rounded-[26px] border border-[var(--border)] bg-[rgba(255,255,255,0.03)] p-5"
+          <p className="mt-6 max-w-[540px] text-xl leading-9 text-[#53515a]">
+            The app to search, scrape, and synthesize mock exams from the web at scale.
+            <span className="rounded-md bg-[#efebe4] px-2 py-1 text-[#3d3c44]"> It&apos;s built for deep prep.</span>
+          </p>
+
+          <div className="relative mt-12 w-full max-w-[520px] rounded-[28px] border border-[#ece4d7] bg-white p-3 shadow-[0_18px_60px_rgba(64,45,22,0.1)]">
+            <div className="flex items-center gap-3 rounded-[22px] border border-[#f0ebe1] px-4 py-4 text-left text-[#8e887f]">
+              <Globe className="size-5 text-[#b4aca2]" />
+              <span className="text-lg">https://exam-source.example</span>
+            </div>
+
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <div className="flex flex-wrap gap-2">
+                {toolTabs.map((tab, index) => (
+                  <button
+                    key={tab}
+                    type="button"
+                    className={`rounded-2xl px-4 py-3 text-[15px] font-semibold ${
+                      index === 1
+                        ? "bg-[#fff2ea] text-[#ff6a1a]"
+                        : "bg-[#f5f2eb] text-[#7d776f]"
+                    }`}
                   >
-                    <p className="text-lg font-semibold">{title}</p>
-                    <p className="mt-3 text-base leading-relaxed text-[var(--muted)]">
-                      {detail}
-                    </p>
-                  </div>
+                    {tab}
+                  </button>
                 ))}
               </div>
+
+              <Link
+                href="/auth"
+                className="flex size-14 items-center justify-center rounded-2xl bg-[#ff6a1a] text-white"
+              >
+                <ArrowRight className="size-5" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute bottom-[12%] left-1/2 h-[270px] w-[92%] max-w-[980px] -translate-x-1/2 rounded-[34px] border border-[#ece4d7] bg-[rgba(255,255,255,0.58)] shadow-[0_18px_50px_rgba(64,45,22,0.06)]">
+            <div className="absolute left-8 right-8 top-10 h-[190px] rounded-[24px] border border-[#efe8dd] bg-[rgba(249,246,240,0.88)]">
+              <div className="flex items-center gap-3 border-b border-[#efe8dd] px-8 py-4">
+                <div className="flex size-6 items-center justify-center rounded-full border border-[#ece4d7]" />
+                <div className="h-3 w-16 rounded-full bg-[#ece6dd]" />
+                <div className="ml-8 h-4 w-28 rounded-md bg-[#efebe4]" />
+                <div className="h-3 w-10 rounded-full bg-[#f0ebe1]" />
+                <div className="h-3 w-10 rounded-full bg-[#f0ebe1]" />
+                <div className="h-3 w-10 rounded-full bg-[#f0ebe1]" />
+              </div>
+
+              <div className="grid grid-cols-[1.1fr_0.9fr] gap-6 px-8 py-7">
+                <div>
+                  <div className="h-5 w-28 rounded-md bg-[#ece6dd]" />
+                  <div className="mt-5 h-14 w-full rounded-2xl bg-[#f5f1ea]" />
+                  <div className="mt-4 grid grid-cols-3 gap-4">
+                    <div className="h-24 rounded-2xl bg-[#f8f4ee]" />
+                    <div className="h-24 rounded-2xl bg-[#f8f4ee]" />
+                    <div className="h-24 rounded-2xl bg-[#f8f4ee]" />
+                  </div>
+                </div>
+                <div className="rounded-[24px] border border-[#efe8dd] bg-white px-5 py-4">
+                  <div className="flex items-center justify-between">
+                    <div className="h-4 w-24 rounded-md bg-[#ece6dd]" />
+                    <div className="text-[12px] font-semibold uppercase tracking-[0.22em] text-[#c1b8ad]">
+                      [ .JSON ]
+                    </div>
+                  </div>
+                  <div className="mt-5 space-y-3">
+                    <div className="h-3 w-full rounded-full bg-[#f0ebe1]" />
+                    <div className="h-3 w-[88%] rounded-full bg-[#f0ebe1]" />
+                    <div className="h-3 w-[74%] rounded-full bg-[#f0ebe1]" />
+                    <div className="h-20 rounded-2xl bg-[#f7f3ed]" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
