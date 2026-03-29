@@ -219,6 +219,40 @@ const extraTestimonials = [
   },
 ];
 
+const longScrollBands = [
+  {
+    label: "Retrieval fabric",
+    title: "Trace every paper fragment back to the source before it becomes a mock.",
+    body: "Students should be able to inspect where each question family came from, which forums or archives supported it, and how the final generated item differs from the original material.",
+    metrics: ["186 retrieved source pages", "42 answer-key matches", "12 merged topic clusters", "7 confidence checks"],
+    code: `retrieve("SAT Reading")
+rank(by=["recency","authority","answer-key-overlap"])
+merge_archives()
+surface_sources(mode="inspect")`,
+  },
+  {
+    label: "Practice engine",
+    title: "Keep the cadence of the real exam while still generating new questions.",
+    body: "Fathom should feel like a live exam factory, not a static dump. Preserve timing, section balance, distractor behavior, and escalation patterns while still producing fresh drills.",
+    metrics: ["80-question full run", "3 difficulty ramps", "2 timed sections", "94% pacing match"],
+    code: `compose_mock({
+  mode: "hybrid",
+  preserve: ["weight","difficulty","timing"],
+  remix: true
+})`,
+  },
+  {
+    label: "Review loop",
+    title: "Turn every circled question into the next remediation pass automatically.",
+    body: "The review experience should not end with an answer key. It should branch into explanations, voice breakdowns, concept repair drills, and a follow-up set tuned to the exact failure mode.",
+    metrics: ["text + voice + video", "weak-signal queue", "topic remediation graph", "next drill generated"],
+    code: `for (const miss of reviewQueue) {
+  explain(miss, ["text","voice","video"])
+  regenerate({ scope: miss.topic, mode: "focused" })
+}`,
+  },
+];
+
 export function FathomLanding() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f8fbff] text-[#212126]">
@@ -458,11 +492,11 @@ export function FathomLanding() {
           </div>
         </section>
 
-        <section className="space-y-8 py-12">
+        <section className="space-y-8 py-16">
           {platformBands.map((band, index) => (
             <div
               key={band.title}
-              className={`grid gap-6 rounded-[34px] border border-[#e6edf8] bg-[rgba(255,255,255,0.9)] p-8 shadow-[0_12px_30px_rgba(73,111,182,0.06)] lg:grid-cols-[1fr_1fr] ${
+              className={`grid min-h-[560px] gap-6 rounded-[34px] border border-[#e6edf8] bg-[rgba(255,255,255,0.9)] p-8 shadow-[0_12px_30px_rgba(73,111,182,0.06)] lg:grid-cols-[1fr_1fr] lg:p-10 ${
                 index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
@@ -491,6 +525,72 @@ export function FathomLanding() {
                 <pre className="mono overflow-x-auto rounded-[24px] border border-[#dfe8f8] bg-white p-5 text-sm leading-7 text-[#2d56b6]">
                   {band.right}
                 </pre>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        <section className="space-y-8 py-16">
+          {longScrollBands.map((band, index) => (
+            <div
+              key={band.title}
+              className={`grid min-h-[620px] gap-8 rounded-[36px] border border-[#e6edf8] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,248,255,0.92))] p-8 shadow-[0_14px_36px_rgba(73,111,182,0.08)] lg:grid-cols-[1.08fr_0.92fr] lg:p-12 ${
+                index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+              }`}
+            >
+              <div className="flex flex-col justify-between">
+                <div>
+                  <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">{band.label}</p>
+                  <h2 className="mt-5 max-w-[680px] text-[42px] font-semibold leading-tight tracking-[-0.04em] text-[#23262d] sm:text-[50px]">
+                    {band.title}
+                  </h2>
+                  <p className="mt-5 max-w-[620px] text-xl leading-9 text-[#687184]">{band.body}</p>
+                </div>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {band.metrics.map((item) => (
+                    <div key={item} className="rounded-[24px] border border-[#e8eef9] bg-white/80 px-5 py-5 shadow-[inset_0_0_0_1px_rgba(42,109,251,0.03)]">
+                      <div className="mono text-xs uppercase tracking-[0.18em] text-[#9cb0d5]">Signal</div>
+                      <div className="mt-3 text-lg font-medium text-[#31415f]">{item}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center">
+                <div className="w-full rounded-[32px] border border-[#e6edf8] bg-[#f8fbff] p-5 shadow-[inset_0_0_0_1px_rgba(42,109,251,0.04)]">
+                  <div className="flex items-center justify-between border-b border-[#e6edf8] pb-4">
+                    <span className="mono text-xs uppercase tracking-[0.2em] text-[#8ea2c9]">runtime surface</span>
+                    <div className="flex gap-2">
+                      <span className="size-2 rounded-full bg-[#bfd1f6]" />
+                      <span className="size-2 rounded-full bg-[#9db9f5]" />
+                      <span className="size-2 rounded-full bg-[var(--accent)]" />
+                    </div>
+                  </div>
+
+                  <div className="mt-5 rounded-[26px] border border-[#dfe8f8] bg-white p-6">
+                    <pre className="mono overflow-x-auto text-sm leading-8 text-[#2d56b6]">{band.code}</pre>
+                  </div>
+
+                  <div className="mt-5 grid gap-4 md:grid-cols-2">
+                    <div className="rounded-[24px] border border-[#e6edf8] bg-white px-5 py-5">
+                      <div className="mono text-xs uppercase tracking-[0.18em] text-[#9cb0d5]">preview</div>
+                      <div className="mt-4 h-4 w-32 rounded-full bg-[#e6eefc]" />
+                      <div className="mt-3 h-4 w-full rounded-full bg-[#eef3fc]" />
+                      <div className="mt-3 h-4 w-[82%] rounded-full bg-[#eef3fc]" />
+                      <div className="mt-5 h-32 rounded-[20px] bg-[#f5f8ff]" />
+                    </div>
+                    <div className="rounded-[24px] border border-[#e6edf8] bg-white px-5 py-5">
+                      <div className="mono text-xs uppercase tracking-[0.18em] text-[#9cb0d5]">analysis</div>
+                      <div className="mt-4 space-y-3">
+                        <div className="h-10 rounded-2xl bg-[#eef4ff]" />
+                        <div className="h-10 rounded-2xl bg-[#f4f7fc]" />
+                        <div className="h-10 rounded-2xl bg-[#eef4ff]" />
+                        <div className="h-10 rounded-2xl bg-[#f4f7fc]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
@@ -620,6 +720,43 @@ export function FathomLanding() {
                   {item}
                 </a>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-28 pt-8">
+          <div className="grid min-h-[420px] gap-6 rounded-[36px] border border-[#e6edf8] bg-[rgba(255,255,255,0.92)] p-8 shadow-[0_14px_36px_rgba(73,111,182,0.08)] lg:grid-cols-[0.95fr_1.05fr] lg:p-12">
+            <div className="flex flex-col justify-between">
+              <div>
+                <p className="mono text-xs uppercase tracking-[0.22em] text-[var(--accent)]">Below the fold</p>
+                <h2 className="mt-4 text-[42px] font-semibold leading-tight tracking-[-0.05em] text-[#23262d]">
+                  This pass is intentionally long enough to feel like a real landing page.
+                </h2>
+                <p className="mt-5 max-w-[560px] text-xl leading-9 text-[#687184]">
+                  The page now has more full-height product storytelling blocks, denser framed surfaces, and enough vertical structure that you should immediately be able to scroll and inspect multiple sections.
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link href="/auth" className="primary-button">
+                  Continue to auth
+                </Link>
+                <Link href="/app" className="secondary-button">
+                  Open app shell
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {["source provenance", "mock composer", "explanation engine", "review queue", "voice tutor", "video storyboard"].map(
+                (item) => (
+                  <div key={item} className="rounded-[24px] border border-[#e8eef9] bg-[#f8fbff] px-5 py-5">
+                    <div className="mono text-xs uppercase tracking-[0.18em] text-[#9cb0d5]">module</div>
+                    <div className="mt-3 text-lg font-medium text-[#31415f]">{item}</div>
+                    <div className="mt-4 h-20 rounded-[18px] bg-white" />
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </section>
