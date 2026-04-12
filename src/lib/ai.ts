@@ -8,13 +8,9 @@ import type {
   GeneratedTest,
   TestMetadata,
   Explanation,
-  ExplanationStep,
   VoiceExplanation,
   VideoExplanation,
-  VideoScene,
   StudyPlan,
-  StudyPhase,
-  StudyResource,
   Difficulty,
 } from '@/types'
 import { OpenAIError } from '@/types'
@@ -74,7 +70,6 @@ interface OpenAIErrorResponse {
 
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
 const OPENAI_MODEL = 'gpt-4o'
-const DEFAULT_MAX_TOKENS = 4096
 const DEFAULT_TEMPERATURE = 0.7
 
 // ---- API key validation ---------------------------------------------------

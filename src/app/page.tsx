@@ -1,5 +1,7 @@
-import { FathomLanding } from "@/components/landing/fathom-landing";
+import { LandingPage } from "@/components/fathom/landing-page";
+import { getProviderStatuses } from "@/lib/provider-status";
 
 export default function Home() {
-  return <FathomLanding />;
+  const providers = getProviderStatuses();
+  return <LandingPage providers={providers} />;
 }

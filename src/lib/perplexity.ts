@@ -2,7 +2,7 @@
 // Fathom - Perplexity Sonar API client
 // ---------------------------------------------------------------------------
 
-import type { SearchOptions, SearchResult, Source, PerplexityError as PerplexityErrorType } from '@/types'
+import type { SearchOptions, SearchResult, Source } from '@/types'
 import { PerplexityError } from '@/types'
 
 // ---- Perplexity API types -------------------------------------------------

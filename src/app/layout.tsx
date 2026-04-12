@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
 const firecrawlSans = localFont({
@@ -20,9 +21,9 @@ const firecrawlMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Fathom | AI Mock Tests From Real Exam Signals",
+  title: "Fathom | Research-Led Exam Builder",
   description:
-    "Generate high-fidelity mock tests from web research, review circled questions, and get text, voice, or video explanations.",
+    "Fathom researches the web, extracts live source material, and assembles concise exam blueprints for adaptive practice.",
   keywords: [
     "AI test prep",
     "mock test generator",
@@ -55,7 +56,7 @@ const structuredData = {
   applicationCategory: "EducationalApplication",
   operatingSystem: "Web",
   description:
-    "Fathom turns past exam signals into adaptive mock tests and multi-modal AI explanations.",
+    "Fathom turns live research and source extraction into adaptive exam blueprints and review workflows.",
   offers: {
     "@type": "Offer",
     price: "0",
@@ -71,6 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${firecrawlSans.variable} ${firecrawlMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
@@ -78,7 +80,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
